@@ -8,7 +8,7 @@ import Home  from './Home'
 import {classes} from './helpers';
 
 
-import { getCategories, addPosts, editPost } from './helpers/request';
+import { getCategories, addPosts } from './helpers/request';
 
 
 
@@ -64,10 +64,6 @@ class App extends Component {
     };
 
 
-    // someThing = () => {
-    //     const nextValues = { ...values };
-    //     editPost(nextValues)
-    // };
 
 
 

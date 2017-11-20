@@ -40,9 +40,9 @@ export const editPost = (values, postId) => {
 };
 
 
-export const deletePost = () => {
-
-}
+export const deletePost = (postId) => {
+    return request(`/posts/${postId}`, { method: 'DELETE'})
+};
 
 
 

@@ -3,18 +3,16 @@ import {Card, Col, Icon} from 'antd';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom'
 import {classes} from './helpers';
+import { deletePost } from './helpers/request';
 
 
 class PostCard extends Component {
 
-    //
-    // deleteMyPost = () => {
-    //     Object.keys(this.props.post).filter((myId) =>{
-    //         console.log('khraaaaaa dial bessah'+myId);
-    //         return myId
-    //     })
-    // }
 
+    deleteMyPost = (e) => {
+        e.preventDefault()
+        deletePost(this.props.id)
+    };
 
 
     render() {
@@ -29,7 +27,7 @@ class PostCard extends Component {
                             <div className="close-icon">
                                 <Link to="/addPost"><Icon type="edit"/></Link>
 
-                                <Icon type="close"/>
+                                <Icon type="close" onClick={this.deleteMyPost}/>
                             </div>
 
                             <img alt="example" width="100%"
