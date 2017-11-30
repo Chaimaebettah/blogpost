@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
 import {Link, Route} from 'react-router-dom'
 import Category from './Category'
 import Post from './Post'
@@ -8,7 +7,7 @@ import Home  from './Home'
 import {classes} from './helpers';
 
 
-import { getCategories, addPosts } from './helpers/request';
+import { getCategories, addPosts, editPost } from './helpers/request';
 
 
 
@@ -21,7 +20,8 @@ import './App.css';
 class App extends Component {
     state = {
         categories: [],
-        values: ''
+        values: '',
+        comment:''
     };
 
     getAllCategories = () => {
@@ -56,13 +56,32 @@ class App extends Component {
     setFormValues = (values) => {
          this.setState ({ values: values });
         const nextValues = { ...values };
-        nextValues.timestamp = Date.now();
+
+        // if there is already an id in the form values, we need to call the editPost request helper
+        if (values.id) {
+            editPost(values, values.id).then(response => {
+                console.log(response);
+            });
+            return false;
+        }
+
         nextValues.id = Math.floor(Math.random() * 200000);
+        nextValues.timestamp = Date.now();
+        nextValues.image = values.image.file.thumbUrl;
         addPosts(nextValues).then(response => {
             console.log(response);
         })
     };
 
+
+       // setComments = (comment) => {
+    //     this.setState({ comment: comment});
+    //     const nextValues = { ...comment };
+    //     nextValues.timestamp = Date.now();
+    //     AddComment(nextValues).then(response => {
+    //         console.log(response);
+    //     })
+    // };
 
 
 
@@ -81,8 +100,9 @@ class App extends Component {
                     ))}
                 </Menu>
                 <div>
-                    <Route exact path="/addPost"  render={ () => (
+                    <Route exact path="/addPost/:id" render={ (props) => (
                         <AddPost
+                            {...props}
                             categories={this.state.categories}
                             values={this.state.values}
                             setFormValues={this.setFormValues}
@@ -92,6 +112,7 @@ class App extends Component {
                     <Route exact path="/posts/:category"  component={Category}/>
                     <Route exact path="/post/:id"  component={Post}/>
                     <Route exact path="/home"  component={Home}/>
+
                 </div>
 
             </div>

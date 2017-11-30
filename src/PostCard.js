@@ -8,30 +8,25 @@ import { deletePost } from './helpers/request';
 
 class PostCard extends Component {
 
-
-    deleteMyPost = (e) => {
-        e.preventDefault()
+    deleteMyPost = () => {
         deletePost(this.props.id)
     };
+
 
 
     render() {
         const postId = this.props.id;
         return (
             <Col span={8} className={classes('category', this.props.className)}>
-
                 <Card style={{width: 240}} bodyStyle={{padding: 0}}>
                     <Link to={`/post/${postId}`}>
-
                         <div className="custom-image">
                             <div className="close-icon">
-                                <Link to="/addPost"><Icon type="edit"/></Link>
-
+                                <Link to={`/addPost/${postId}`}><Icon type="edit"/></Link>
                                 <Icon type="close" onClick={this.deleteMyPost}/>
                             </div>
-
                             <img alt="example" width="100%"
-                                 src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"/>
+                                 src={this.props.image}/>
                         </div>
                         <div className="custom-card">
                             <h1>{this.props.title}</h1>

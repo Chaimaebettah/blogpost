@@ -21,8 +21,6 @@ class Category extends Component {
         })
     };
 
-
-
     componentDidMount() {
         const category = this.props.match.params.category;
         this.getPosts(category);
@@ -36,7 +34,6 @@ class Category extends Component {
     }
 
     render() {
-        // console.log( 'hadi li berit daba '+this.state.posts);
         return (
             <div className={classes('category', this.props.className)}>
                 <Row>

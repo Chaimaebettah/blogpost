@@ -11,7 +11,6 @@ const request = (url, options = {}) => {
         ...options
     };
 
-    console.log(nextOptions);
     return fetch(`http://localhost:3001${url}`, nextOptions)
         .then(response => response.json())
 };
@@ -36,13 +35,23 @@ export const getPost = (postId) => {
 
 export const editPost = (values, postId) => {
     return request(`/posts/${postId}`, { method: 'PUT', body: JSON.stringify(values)})
-
 };
 
 
 export const deletePost = (postId) => {
     return request(`/posts/${postId}`, { method: 'DELETE'})
 };
+
+
+
+export const AddComment = (comment) => {
+    return request('/comments', { method: 'POST', body: JSON.stringify(comment)})
+};
+
+
+export const getComments = (postId) => {
+    return request(`/posts/${postId}/comments`);
+}
 
 
 

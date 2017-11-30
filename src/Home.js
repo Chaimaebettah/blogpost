@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import {Icon, Button} from 'antd'
+import { Button} from 'antd'
 import {Link} from 'react-router-dom';
 import { classes } from './helpers';
 
@@ -9,7 +9,7 @@ class Home extends Component {
     render() {
         return (
             <div className={classes('Home', this.props.className)}>
-                <Link to="/addPost"><Button className="add-post-button" icon="plus">Add a Post</Button></Link>
+                <Link to="/addPost/create"><Button className="add-post-button" icon="plus">Add a Post</Button></Link>
             </div>
         )
     }

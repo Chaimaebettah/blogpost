@@ -13,6 +13,7 @@ const defaultData = {
     voteScore: 6,
     deleted: false,
     commentCount: 2,
+    image: ''
   },
   "6ni6ok3ym7mf1p33lnez": {
     id: '6ni6ok3ym7mf1p33lnez',
@@ -24,6 +25,7 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0,
+    image: ''
   }
 }
 
@@ -77,7 +79,8 @@ function add (token, post) {
       category: post.category,
       voteScore: 1,
       deleted: false,
-      commentCount: 0
+      commentCount: 0,
+      image: post.image
     };
 
     res(posts[post.id])
