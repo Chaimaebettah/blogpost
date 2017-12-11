@@ -297,7 +297,7 @@ app.post('/comments/:id', bodyParser.json(), (req, res) => {
               })
           }
       )
-})
+});
 
 app.delete('/comments/:id', (req, res) => {
     comments.disable(req.token, req.params.id)

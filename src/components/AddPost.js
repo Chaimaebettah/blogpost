@@ -1,22 +1,15 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router';
-import { classes } from './helpers';
+import { classes } from '../helpers/index';
 import styled from 'styled-components';
 import { Form, Icon, Input, Button, Upload, Select } from 'antd';
-import {getPost} from "./helpers/request"
+import {fetchPost} from "../helpers/request"
 const FormItem = Form.Item;
 const Option = Select.Option;
 const { TextArea } = Input;
 
 
-
-
-
-
-
-
 class AddPost extends Component {
-
     state = {
         id: '',
         title: '',
@@ -25,14 +18,13 @@ class AddPost extends Component {
         author: '',
         image:'',
         fireRedirect: false
-
     };
 
     componentDidMount() {
         const postId = this.props.match.params.id;
         if (postId === 'create') return;
 
-        getPost(postId).then(({ title, body, category, author, image }) => {
+        fetchPost(postId).then(({ title, body, category, author, image }) => {
             this.setState({
                 id: postId,
                 title,
@@ -62,16 +54,12 @@ class AddPost extends Component {
 
         });
         this.setState({ fireRedirect: true })
-
     };
 
 
-
     render() {
-
         const { getFieldDecorator } = this.props.form;
         const { fireRedirect } = this.state;
-
         return (
             <div className={classes('postForm', this.props.className)} >
                 <Form onSubmit={this.handleSubmit} className="login-form">
@@ -142,9 +130,6 @@ export default Form.create()(styled(AddPost)`
      padding: 30px 20px 10px 30px;
      border: 1px solid #d9d9d9;
      max-width: 500px;
-     
-     
-
     .login-form {
       max-width: 300px;
     }
