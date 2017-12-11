@@ -9,7 +9,7 @@ import PostCommentForm from '../components/PostCommentForm';
 const Post = ({
     className,
     author,
-    time,
+    timestamp,
     title,
     body,
     image,
@@ -30,7 +30,7 @@ const Post = ({
             <Row type="flex" justify="center">
                 <Col span={12}>
                     <h3>Author Name: <span className="author">{author}</span></h3>
-                    <h4 className="post-date">{convertedTimeStamp(time)}</h4>
+                    <h4 className="post-date">{convertedTimeStamp(timestamp)}</h4>
                     <div className="post-body">
                         <h1> {title}</h1>
                         <img className="post-image" src={image} alt=""/>
