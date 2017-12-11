@@ -1,4 +1,4 @@
-##Run The Project
+#Run The Project
   
   Clone this repository "https://github.com/Chaimaebettah/blogpost.git" then type 'cd blogpost'
   
