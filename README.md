@@ -1,13 +1,12 @@
 ##Run The Project
   
-  Clone the repository then type 'cd Readable'
+  Clone this repository "https://github.com/Chaimaebettah/blogpost.git" then type 'cd blogpost'
   
-  API server
+ #### API server
   cd api-server
   npm install
   node server
-  Front End - In another terminal window
-  navigate to the project Readbale
-  cd frontend
+  ####Front End - In another terminal window
+  cd blogpost
   npm install
   npm start
