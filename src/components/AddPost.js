@@ -118,7 +118,7 @@ class AddPost extends Component {
                     </FormItem>
                 </Form>
                 {fireRedirect && (
-                    <Redirect to={'/home'}/>
+                    <Redirect to={'/'}/>
                 )}
             </div>
         )

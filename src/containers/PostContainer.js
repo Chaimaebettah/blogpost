@@ -12,6 +12,7 @@ import {
   editCurrentComment,
   postVotes,
   addComment,
+  deletePost
 } from '../actions'
 
 import Post from '../components/Post';
@@ -73,11 +74,19 @@ class PostContainer extends Component {
     })
   };
 
+  deletePost = (postId) => (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log(this.props.history);
+    this.props.dispatch(deletePost(postId));
+    this.props.history.push('/');
+  };
+
 
   handlePostVoteClick = (e) => {
     const postId = this.props.match.params.id;
     const id = e.target.id;
-    this.props.dispatch(postVotes(postId, id))
+    this.props.dispatch(postVotes(postId, id));
   };
 
 
@@ -101,6 +110,7 @@ class PostContainer extends Component {
         handleSubmit={this.handleSubmit}
         editComment={this.editComment}
         deleteComment={this.deleteComment}
+        deletePost={this.deletePost}
         toggleEditComment={this.toggleEditComment}
         handlePostVoteClick={this.handlePostVoteClick}
         handleCommentVoteClick={this.handleCommentVoteClick}

@@ -45,6 +45,7 @@ const addCommentToPostInState = (state, comment) => {
   nextState.posts = nextPosts.map(post => {
     if (parseInt(post.id) === parseInt(comment.parentId)) {
       let nextPost = {...post};
+      if (!nextPost.comments) nextPost.comments = [];
       nextPost.comments.push(comment);
       return nextPost;
     }
@@ -67,7 +68,6 @@ const addCommentsToPostInState = (state, postId, comments) => {
   return nextState;
 }
 
-const editCommentForPostInState = (state) => {};
 
 const deleteCommentForPostInState = (state, postId, commentId) => {
   const nextState = {...state};

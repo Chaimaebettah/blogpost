@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Row, Col, Card, Icon } from 'antd'
+import { Link } from 'react-router-dom'
+
+
 
 import { classes, convertedTimeStamp } from '../helpers/index';
 
@@ -13,6 +16,7 @@ const Post = ({
     title,
     body,
     image,
+    commentCount,
     comments,
     voteScore,
     commentForm,
@@ -22,15 +26,26 @@ const Post = ({
     toggleEditComment,
     deleteComment,
     handleCommentVoteClick,
-    handleSubmit
+    handleSubmit,
+    deletePost,
+    id,
 }) => {
 
-    return (
-        <div className={classes('Post', className)}>
+  return (
+  <div className={classes('Post', className)}>
+            <Row type="flex" justify="end">
+                <Col span={4} >
+                    <div className="close-edit-icons">
+                        <Link to={`/addPost/${id}`}><Icon type="edit"/></Link>
+                        <Icon type="close" onClick={deletePost(id)}/>
+                    </div>
+                </Col>
+            </Row>
             <Row type="flex" justify="center">
                 <Col span={12}>
                     <h3>Author Name: <span className="author">{author}</span></h3>
                     <h4 className="post-date">{convertedTimeStamp(timestamp)}</h4>
+                    {commentCount ? <p>{commentCount} Comments for this post</p> : null}
                     <div className="post-body">
                         <h1> {title}</h1>
                         <img className="post-image" src={image} alt=""/>

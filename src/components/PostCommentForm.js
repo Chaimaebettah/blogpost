@@ -4,9 +4,14 @@ import {Form, Input, Button} from 'antd'
 const FormItem = Form.Item;
 const {TextArea} = Input;
 
-class PostCommentForm extends React.Component {
-    render() {
-        const {handleSubmit, onCancel, commentId, author, comment, form, mode} = this.props;
+const PostCommentForm = ({handleSubmit,
+                           onCancel,
+                           commentId,
+                           author,
+                           comment,
+                           form,
+                           mode
+}) => {
         const {getFieldDecorator} = form;
 
         return (
@@ -42,8 +47,6 @@ class PostCommentForm extends React.Component {
                 </div>
             </Form>
         )
-    }
-
-}
+};
 
 export default Form.create()(PostCommentForm);

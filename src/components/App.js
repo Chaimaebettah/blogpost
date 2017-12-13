@@ -13,7 +13,7 @@ const App = ({ className, categories, values, setFormValues }) => {
         <div className={classes('app', className)}>
             <Menu mode="horizontal">
                 <Menu.Item key="home">
-                    <Icon type="home"><Link to="/home">home</Link></Icon>
+                    <Icon type="home"><Link to="/">home</Link></Icon>
                 </Menu.Item>
                 {categories.map(category => (
                     <Menu.Item key={category.name}>
@@ -28,12 +28,11 @@ const App = ({ className, categories, values, setFormValues }) => {
                         categories={categories}
                         values={values}
                         setFormValues={setFormValues}
-                        // getCategories={this.getCategories}
                     />
                 ) } />
                 <Route exact path="/posts/:category"  component={Category}/>
-                <Route exact path="/post/:id"  component={Post}/>
-                <Route exact path="/home"  component={Home}/>
+                <Route exact path="/posts/:category/:id"  component={Post}/>
+                <Route exact path="/"  component={Home}/>
 
             </div>
         </div>

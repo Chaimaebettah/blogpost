@@ -16,8 +16,9 @@ const thunkMiddleware = store => next => action =>
     ? action(store.dispatch, store.getState)
     : next(action);
 
-
-const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+const store = createStore(reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunkMiddleware));
 
 ReactDOM.render(
     <Provider store={store}>
