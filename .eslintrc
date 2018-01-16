@@ -10,5 +10,17 @@
   ],
   "rules": {
     "react/prop-types": 0
+  },
+  "globals": {
+    "Promise": true,
+    "require": true,
+    "console": true,
+    "module": true,
+    "process": true,
+    "exports": true,
+    "fetch": true,
+    "window": true,
+    "document": true
+
   }
 }

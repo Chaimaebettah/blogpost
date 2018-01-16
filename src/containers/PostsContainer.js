@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getAllPosts, getAllCategoryPosts, deletePost} from '../actions'
+import {deletePost} from '../actions'
 
 import Posts from '../components/Posts';
 
 
 class PostsContainer extends Component {
 
-  getPosts = (category) => {
+  getPosts = () => {
     const nextCategory = this.props.category;
     if (nextCategory) {
       return this.props.posts.filter(post => post.category === nextCategory)

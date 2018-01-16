@@ -8,7 +8,6 @@ import {
   DELETE_COMMENT,
   UPDATE_CATEGORIES,
   GET_POSTS,
-  UPDATE_POST_COMMENTS,
   UPDATE_POST_VOTE,
   UPDATE_COMMENT_VOTE,
   SORT_BY_VOTES
@@ -26,7 +25,7 @@ const editPostInState = (state, currentPost) => {
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
   nextState.posts = nextPosts.map(post => {
-    if (parseInt(post.id) === parseInt(currentPost.id)) return {...post, ...currentPost};
+    if (parseInt(post.id, 10) === parseInt(currentPost.id, 10)) return {...post, ...currentPost};
     return post;
   });
   return nextState;
@@ -35,7 +34,7 @@ const editPostInState = (state, currentPost) => {
 const deletePostFromState = (state, postId) => {
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
-  nextState.posts = nextPosts.filter(post => post.id != postId);
+  nextState.posts = nextPosts.filter(post => parseInt(post.id, 10) !== parseInt(postId, 10));
   return nextState;
 };
 
@@ -43,7 +42,7 @@ const addCommentToPostInState = (state, comment) => {
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
   nextState.posts = nextPosts.map(post => {
-    if (parseInt(post.id) === parseInt(comment.parentId)) {
+    if (parseInt(post.id, 10) === parseInt(comment.parentId, 10)) {
       let nextPost = {...post};
       if (!nextPost.comments) nextPost.comments = [];
       nextPost.comments.push(comment);
@@ -58,7 +57,7 @@ const addCommentsToPostInState = (state, postId, comments) => {
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
   nextState.posts = nextPosts.map(post => {
-    if (parseInt(post.id) === parseInt(postId)) {
+    if (parseInt(post.id, 10) === parseInt(postId, 10)) {
       let nextPost = {...post};
       nextPost.comments = comments;
       return nextPost;
@@ -73,9 +72,9 @@ const deleteCommentForPostInState = (state, postId, commentId) => {
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
   nextState.posts = nextPosts.map(post => {
-    if (parseInt(post.id) === parseInt(postId)) {
+    if (parseInt(post.id, 10) === parseInt(postId, 10)) {
       let nextPost = {...post};
-      nextPost.comments = nextPost.comments.filter(comment => comment.id != commentId);
+      nextPost.comments = nextPost.comments.filter(comment => parseInt(comment.id, 10) !== parseInt(commentId, 10));
       return nextPost;
     }
     return post;
@@ -87,7 +86,7 @@ const updatePostVoteForPostInState = (state, postId, voteScore) => {
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
   nextState.posts = nextPosts.map(post => {
-    if (parseInt(post.id) === parseInt(postId)) {
+    if (parseInt(post.id, 10) === parseInt(postId, 10)) {
       let nextPost = {...post};
       nextPost.voteScore = voteScore;
       return nextPost;
@@ -102,10 +101,10 @@ const updateCommentVoteForPostInState = (state, postId, commentId, voteScore) =>
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
   nextState.posts = nextPosts.map(post => {
-    if (parseInt(post.id) === parseInt(postId)) {
+    if (parseInt(post.id, 10) === parseInt(postId, 10)) {
       let nextPost = {...post};
       nextPost.comments = nextPost.comments.map(comment => {
-        if (parseInt(comment.id) === parseInt(commentId)) {
+        if (parseInt(comment.id, 10) === parseInt(commentId, 10)) {
           const nextComment = {...comment};
           nextComment.voteScore = voteScore;
           return nextComment;
@@ -122,14 +121,14 @@ const updateCommentVoteForPostInState = (state, postId, commentId, voteScore) =>
 
 
 const sortAsc = (a, b) => {
-  if (a < b ) return -1;
-  if (a > b ) return 1;
+  if (a < b) return -1;
+  if (a > b) return 1;
   return 0;
 }
 
 const sortDesc = (a, b) => {
-  if (a > b ) return -1;
-  if (a < b ) return 1;
+  if (a > b) return -1;
+  if (a < b) return 1;
   return 0;
 }
 
@@ -137,11 +136,10 @@ const sortPostsByVotesInState = (state) => {
   const nextState = {...state};
   const nextPosts = nextState.posts.slice(0);
   const sortFunc = nextState.postsFilter.sort === 'asc' ? sortAsc : sortDesc;
-  nextState.posts =  nextPosts.sort((a, b) => sortFunc(parseInt(a.voteScore), parseInt(b.voteScore)));
+  nextState.posts = nextPosts.sort((a, b) => sortFunc(parseInt(a.voteScore, 10), parseInt(b.voteScore, 10)));
   nextState.postsFilter.sort = nextState.postsFilter.sort === 'asc' ? 'desc' : 'asc';
   return nextState;
 }
-
 
 
 const initialState = {
@@ -155,9 +153,6 @@ const initialState = {
 
 
 function reducer(state = initialState, action) {
-  const nextState = {...state};
-  let postId = null;
-  let nextPosts = [];
   switch (action.type) {
     case UPDATE_CATEGORIES:
       return {...state, categories: action.categories};
